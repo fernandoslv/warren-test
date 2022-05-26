@@ -1,0 +1,74 @@
+$pink: #e02b57;
+$silver: #3e4c5d;
+$white: #ffffff;
+$secondary: #ebf1f8;
+
+/*Color text*/
+.text--white{
+    color: $white;
+}
+.text--pink{
+    color: $pink;
+}
+.text--silver{
+    color:$silver;
+}
+
+/*Text Decoration/Transformation/Size*/
+.text--bold{
+    font-weight: bold !important;
+}
+.text--normal{
+    font-weight: normal !important;
+}
+.text--uppercase{
+    text-transform: uppercase !important;
+}
+.text--lowcase{
+    text-transform: lowercase !important;
+}
+
+.fs-1{
+    font-size: 2.2rem !important;
+}
+.fs-2{
+    font-size: 1.8rem !important;
+}
+.fs-3{
+    font-size: 1.4rem !important;
+}
+.fs-4{
+    font-size: 1.2rem !important;
+}
+.fs-5{
+    font-size: .8rem !important;
+}
+.fs-6{
+    font-size: .6rem !important;
+}
+.fs-7{
+    font-size: .4rem !important;
+}
+
+.curso-pointer{
+    cursor: pointer;
+}
+
+
+.container{
+    width: 992px;
+    margin: 50px auto;
+    &--center{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 14px;
+}
