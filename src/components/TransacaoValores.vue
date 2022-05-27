@@ -1,20 +1,21 @@
 <template>
   <div class="valores">
     <div class="start">
-        <span>Transferido de Banco I</span>
-        <h3 class="fs-3 text--normal text--white">R$1800,00</h3>
+        <span>{{from}}</span>
+        <h3 class="fs-3 text--normal text--white">{{new Intl.NumberFormat('pt-br',{style: 'currency', currency: 'BRL'}).format(amount)}}</h3>
     </div>
     <div class="middle"></div>
     <div class="middle--end"></div>
     <div class="end">        
-        <span>Para Banco II</span>
-        <h3 class="fs-3 text--normal">R$1800,00</h3>
+        <span>{{to}}</span>
+        <h3 class="fs-3 text--normal">{{new Intl.NumberFormat('pt-br',{style: 'currency', currency: 'BRL'}).format(amount)}}</h3>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: "TransacaoValores",
+  props:['amount', 'from', 'to'],
 };
 </script>
 <style lang="scss" scoped>

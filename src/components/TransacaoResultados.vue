@@ -1,7 +1,7 @@
 <template>
-<LoaderSearch v-if="loading"/>
+  <LoaderSearch v-if="!listaTransacoes" />
 
-  <table v-if="!loading" class="table">
+  <table v-if="listaTransacoes" class="table">
     <thead class="thead">
       <tr>
         <th class="th text--white text--normal text--uppercase fs-5">Título</th>
@@ -13,7 +13,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr @click="selecionarTransacao(item.id)" v-for="item in results" :key="item.id">
+      <tr
+        @click="selecionarTransacao(item.id)"
+        v-for="item in listaTransacoes"
+        :key="item.id"
+      >
         <td class="td">{{ item.title }}</td>
         <td class="td">{{ item.description }}</td>
         <td class="td">{{ item.status }}</td>
@@ -21,46 +25,35 @@
       </tr>
     </tbody>
   </table>
-  <TransacaoDetalhe/>
+  <TransacaoDetalhe ref="modal" />
 </template>
 
 <script>
-import axios from "axios";
-import LoaderSearch from './LoaderSearch.vue'
-import TransacaoDetalhe from './TransacaoDetalhe.vue'
+import { mapState } from "vuex";
+import LoaderSearch from "./LoaderSearch.vue";
+import TransacaoDetalhe from "./TransacaoDetalhe.vue";
 
 export default {
   name: "TransacaoResultados",
-  components:{LoaderSearch, TransacaoDetalhe},
-  emits: ['transacao-selecionada'],
+  components: { LoaderSearch, TransacaoDetalhe },  
   data() {
-    return {
-      results: null,
-      loading: true,
-      transacaoId: null
+    return {      
+      transacaoId: null,
+      modal:false
     };
-  },  
-  mounted() {
+  },
+  computed: mapState(["listaTransacoes"]),
+  async mounted() {
     this.carregarTransacoes();
   },
   methods: {
     async carregarTransacoes() {
-      this.loading = true;      
-      axios
-        .get("https://warren-transactions-api.herokuapp.com/api/transactions")
-        .then((response) => {
-          this.results = response.data;
-          this.loading = false;
-        })
-        .catch((error) => {
-          console.log(error);
-          this.loading = false;
-        });
+      await this.$store.dispatch("carregarTransacoes")        
     },
-    selecionarTransacao(id){
-      this.transacaoId = id;
-      TransacaoDetalhe.methods.carregarDetalhe(id);      
-    }
+    async selecionarTransacao(id) {    
+      await this.$store.dispatch("carregarDetalhe", id);
+      this.$refs.modal.showModal();
+    },
   },
 };
 </script>
@@ -73,6 +66,12 @@ export default {
   border-collapse: collapse;
   border: 0;
   width: 100%;
+
+  -webkit-animation: fadein .5s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein .5s; /* Firefox < 16 */
+  -ms-animation: fadein .5s; /* Internet Explorer */
+  -o-animation: fadein .5s; /* Opera < 12.1 */
+  animation: fadein .5s;
   .thead {
     vertical-align: bottom;
     th {

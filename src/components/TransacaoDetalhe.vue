@@ -1,55 +1,50 @@
 <template>
-  <div class="backdrop" :class="{ 'backdrop--block': isBlock }">
+  <div
+    v-if="transacao"
+    class="backdrop"
+    :class="{ 'backdrop--block': isBlock }"
+  >
     <div class="modal" :class="{ 'modal--block': isBlock }">
       <div class="modal__header">
-        <h3 class="fs-3 text--uppercase text--normal">Movimentação Interna</h3>
+        <h3 class="fs-3 text--uppercase text--normal">{{ transacao.title }}</h3>
         <span class="close fs-3" @click.stop="hideModal()">x</span>
       </div>
       <div class="modal__body">
-        <TransacaoStatusBar />
-        <TransacaoValores />
+        <TransacaoStatusBar :status="transacao.status" />
+        <TransacaoValores
+          :amount="transacao.amount"
+          :from="transacao.from"
+          :to="transacao.to"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import TransacaoStatusBar from "./TransacaoStatusBar.vue";
 import TransacaoValores from "./TransacaoValores.vue";
 //import axios from "axios";
 
 export default {
   name: "TransacaoDetalhe",
-  components: { TransacaoStatusBar, TransacaoValores },  
+  components: { TransacaoStatusBar, TransacaoValores },
+  props: ["transacaoId"],
   data() {
     return {
-      isBlock: true,
+      isBlock: null,
     };
   },
+  computed: mapState(["transacao"]),
+  mounted() {},
   updated() {},
   methods: {
     hideModal() {
-      this.isBlock = false;      
+      this.isBlock = false;
     },
-
-    showModal() {
+    showModal() {      
       this.isBlock = true;
-      console.log(this.isBlock);
-    },
-
-    carregarDetalhe(id) {
-      this.showModal();
-      console.log(id);
-      //   axios
-      //     .get(
-      //       `https://warren-transactions-api.herokuapp.com/api/transactions/${id}`
-      //     )
-      //     .then((response) => {
-      //       console.log(response.data);
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //     });
     },
   },
 };

@@ -1,13 +1,12 @@
 <template>
-    <router-view />  
+  <router-view />
 </template>
 
 <script>
-  
 </script>
 
 <style lang="scss">
-@import '@/assets/base.scss';
+@import "@/assets/base.scss";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
