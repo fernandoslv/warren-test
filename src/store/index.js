@@ -7,6 +7,21 @@ export default createStore({
     transacao: null
   },
   getters: {
+    transacoesPorStatusTodos(state) {
+      return state.listaTransacoes
+    },
+    transacoesPorStatusSolicitada(state) {
+      return state.listaTransacoes?.filter(transacao => transacao.status == "created")
+    },
+    transacoesPorStatusProcessada(state) {
+      return state.listaTransacoes?.filter(transacao => transacao.status == "processing")
+    },
+    transacoesPorStatusConcluida(state) {
+      return state.listaTransacoes?.filter(transacao => transacao.status == "processed")
+    },
+    transacoesPorStatusPorFiltro(state) {      
+      return state.listaTransacoes?.filter(t => t.status == "processed")?.filter( t => t.title.includes('Resgate'));
+    }
   },
   mutations: {
     carregarTransacoes(state, listaTransacoes) {

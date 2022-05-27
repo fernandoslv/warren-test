@@ -1,7 +1,8 @@
 <template>
-  <LoaderSearch v-if="!listaTransacoes" />
+  <TransacaoFiltro v-on:filtarPorSolicitada="apenasTransacoesPorStatusSolicitada"/>
+  <LoaderSearch v-if="!transacoesPorStatusTodos" />
 
-  <table v-if="listaTransacoes" class="table">
+  <table v-if="transacoesPorStatusTodos" class="table">
     <thead class="thead">
       <tr>
         <th class="th text--white text--normal text--uppercase fs-5">Título</th>
@@ -15,7 +16,7 @@
     <tbody>
       <tr
         @click="selecionarTransacao(item.id)"
-        v-for="item in listaTransacoes"
+        v-for="item in transacoesPorStatusTodos"
         :key="item.id"
       >
         <td class="td">{{ item.title }}</td>
@@ -29,24 +30,32 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import LoaderSearch from "./LoaderSearch.vue";
 import TransacaoDetalhe from "./TransacaoDetalhe.vue";
+import TransacaoFiltro from "./TransacaoFiltros.vue";
 
 export default {
   name: "TransacaoResultados",
-  components: { LoaderSearch, TransacaoDetalhe },  
+  components: { LoaderSearch, TransacaoDetalhe, TransacaoFiltro },  
   data() {
     return {      
       transacaoId: null,
-      modal:false
+      modal:false,
+      transacoes:null
     };
   },
-  computed: mapState(["listaTransacoes"]),
+  computed:{    
+    //mapState(["listaTransacoes"]),    
+    ...mapGetters(["transacoesPorStatusPorFiltro","transacoesPorStatusTodos", "transacoesPorStatusSolicitada", "transacoesPorStatusProcessada", "transacoesPorStatusConcluida"])
+  },  
   async mounted() {
     this.carregarTransacoes();
   },
   methods: {
+    apenasTransacoesPorStatusSolicitada(){      
+      this.transacoes = this.$store.transacoesPorStatusSolicitada;
+    },
     async carregarTransacoes() {
       await this.$store.dispatch("carregarTransacoes")        
     },
