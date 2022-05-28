@@ -1,5 +1,12 @@
 # warren-transacoes-test
 
+Projeto desenvolvido para o teste de seleção de Frontend Developer da Warren.
+O projeto consiste numa aplicação que consome um endpoint de transações e outro de detalhamento da transação.
+A aplicação foi desenvolvida em VueJS 3.2.13, Vuex 4.0.0, SCSS, ES6.
+
+Para visualizar o demo da aplicação acess: https://warren-test.vercel.app/
+
+
 ## Project setup
 ```
 npm install
