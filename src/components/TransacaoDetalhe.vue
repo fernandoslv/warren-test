@@ -1,23 +1,31 @@
 <template>
   <div
-    v-if="transacao"
+    @keyup.esc="hideModal" 
+    @click.stop="hideModal"
     class="backdrop"
     :class="{ 'backdrop--block': isBlock }"
   >
     <div class="modal" :class="{ 'modal--block': isBlock }">
-      <div class="modal__header">
-        <h3 class="fs-4 text--uppercase text--center text--normal">{{ transacao.title }}</h3>
+      <div class="modal__header">        
+        <h3 class="fs-5 text--uppercase text--center text--normal">
+            Detalhes da Transação
+        </h3>
         <span class="close" @click.stop="hideModal()">x</span>
       </div>
-      <div class="modal__body">
-        <TransacaoStatusBar :status="transacao.status" />
+      <div v-if ='detalhe' class="modal__body">
+        <h4 v-if ='detalhe' class="fs-3 text--uppercase text--center text--normal">
+          {{ detalhe.title }}
+        </h4>        
+        <TransacaoStatusBar :status="detalhe.status" />
         <TransacaoValores
-          :amount="transacao.amount"
-          :from="transacao.from"
-          :to="transacao.to"
-        />
+          :amount="detalhe.amount"
+          :from="detalhe.from"
+          :to="detalhe.to"
+          :date="detalhe.date"
+        />        
       </div>
-    </div>
+        <TransacaoErroMensagem v-if="erroMensagem" :mensagemErro="erroMensagem"/>
+    </div>    
   </div>
 </template>
 
@@ -25,26 +33,31 @@
 import { mapState } from "vuex";
 import TransacaoStatusBar from "./TransacaoStatusBar.vue";
 import TransacaoValores from "./TransacaoValores.vue";
-//import axios from "axios";
+import TransacaoErroMensagem from "./TransacaoErroMensagem.vue";
 
 export default {
   name: "TransacaoDetalhe",
-  components: { TransacaoStatusBar, TransacaoValores },
+  components: { TransacaoStatusBar, TransacaoValores, TransacaoErroMensagem },
   props: ["transacaoId"],
   data() {
     return {
       isBlock: null,
+      detalhe: null,
     };
   },
-  computed: mapState(["transacao"]),
+  computed: mapState(["transacao", "erroMensagem"]),
   mounted() {},
   updated() {},
   methods: {
     hideModal() {
       this.isBlock = false;
     },
-    showModal() {      
+    async showModal(id) {
+      this.detalhe = null;
       this.isBlock = true;
+      await this.$store.dispatch("carregarDetalhe", id);
+      this.detalhe = this.$store.state.transacao;
+      console.log(this.detalhe);
     },
   },
 };
@@ -73,7 +86,7 @@ export default {
   display: flex;
 }
 
-.modal {  
+.modal {
   border-radius: 5px 5px 5px 5px;
   box-shadow: 0px 0px 15px 5px #888;
   background-color: #fff;
@@ -82,34 +95,34 @@ export default {
   .modal__header {
     padding: 20px 20px 10px 30px;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
     color: $silver;
-    border-bottom: 1px solid $silver;
-    .close{        
-        background-color: $silver;        
-        color: $white;
-        border-radius: 16px;
-        width: 32px;      
-        height: 32px;
-        padding: 7px 10px;        
+    border-bottom: 1px solid $secondary;
+    .close {
+      background-color: $silver;
+      color: $white;
+      border-radius: 16px;
+      width: 32px;
+      height: 32px;
+      padding: 7px 10px;
     }
   }
   .modal__body {
-    height: 240px;
-    padding: 20px 30px;
-  }
+    height: 280px;
+    padding: 20px 30px;    
+  }  
 }
 
-@media only screen and (min-width: 601px){
-    .modal{
-        width: 500px;        
-    }
+@media only screen and (min-width: 601px) {
+  .modal {
+    width: 500px;
+  }
 }
-@media only screen and (max-width: 600px){
-    .modal{
-        width: 100%;        
-    }
+@media only screen and (max-width: 600px) {
+  .modal {
+    width: 100%;
+  }
 }
 
 .modal--block {

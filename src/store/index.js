@@ -5,24 +5,10 @@ const utils = require('../utils/index.js');
 export default createStore({
   state: {
     listaTransacoes: null,
-    transacao: null
+    transacao: null,
+    erroMensagem:''
   },
-  getters: {
-    transacoesPorStatusTodos(state) {
-      return state.listaTransacoes;
-    },
-    transacoesPorStatusSolicitada(state) {
-      return state.listaTransacoes?.filter(transacao => transacao.status == "created")
-    },
-    transacoesPorStatusProcessada(state) {
-      return state.listaTransacoes?.filter(transacao => transacao.status == "processing")
-    },
-    transacoesPorStatusConcluida(state) {
-      return state.listaTransacoes?.filter(transacao => transacao.status == "processed")
-    },
-    transacoesPorStatusPorFiltro(state) {
-      return state.listaTransacoes?.filter(t => t.status == "processed")?.filter(t => t.title.includes('Resgate'));
-    },
+  getters: {    
     transacoesPorStatusPorTitulo: (state) => (status, titulo) => {
       let filtrado = state.listaTransacoes.filter(t => utils.removerAcentos(t.title).toUpperCase().includes( utils.removerAcentos(titulo.toUpperCase())));
       if(status!='0'){
@@ -32,11 +18,25 @@ export default createStore({
     }
   },
   mutations: {
-    carregarTransacoes(state, listaTransacoes) {
-      state.listaTransacoes = listaTransacoes;
+    carregarTransacoes(state, listaTransacoes) {      
+      state.listaTransacoes = utils.ordernarTransacoesPorData(listaTransacoes);
+      state.listaTransacoes.map((transacao) => {return utils.normalizarDadosTransacoes(transacao)});
+      state.erroMensagem = '';
     },
     carregarDetalhe(state, transacao) {
       state.transacao = transacao;
+      utils.normalizarDadosTransacoes(state.transacao);
+      state.erroMensagem = '';
+    },
+    erroCarregarTransacoes(state, error){
+      console.log(error);
+      state.listaTransacoes = null;
+      state.erroMensagem = 'Ops! Não foi possível exibir suas transações.'
+    },
+    erroCarregarDetalhe(state, error){
+      console.log(error);
+      state.listaTransacoes = null;
+      state.erroMensagem = 'Ops! Não foi possível exibir detalhes da transação.'
     }
   },
   actions: {
@@ -44,12 +44,16 @@ export default createStore({
       await axios.get("https://warren-transactions-api.herokuapp.com/api/transactions")
         .then((response) => {
           commit('carregarTransacoes', response.data);
+        }).catch((error) => {
+          commit('erroCarregarTransacoes', error);
         })
     },
     async carregarDetalhe({ commit }, id) {
-      await axios.get(`https://warren-transactions-api.herokuapp.com/api/transactions/${id}`)
+      await axios.get(`https://warren-transactions-api.herokuapp.com/api/transactions/${id}`)      
         .then((response) => {
           commit('carregarDetalhe', response.data);
+        }).catch((error) =>{
+          commit('erroCarregarDetalhe', error);
         })
     }
     

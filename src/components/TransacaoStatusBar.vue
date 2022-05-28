@@ -20,7 +20,7 @@
           'fs-5 text--bold': status == 'created',
           'fs-6': status != 'created',
         }"
-        >Solicitada</span
+        >Solicitado</span
       >
       <span
         class="text--uppercase"
@@ -28,7 +28,7 @@
           'fs-5 text--bold': status == 'processing',
           'fs-6': status != 'processing',
         }"
-        >Processada</span
+        >Processado</span
       >
       <span
         class="text--uppercase"
@@ -36,7 +36,7 @@
           'fs-5 text--bold': status == 'processed',
           'fs-6': status != 'processed',
         }"
-        >concluída</span
+        >Concluído</span
       >
     </div>
   </div>
@@ -59,7 +59,7 @@ export default {
     .statusbar__bar {
       height: 8px;
       width: 100%;
-      background-color: $silver;
+      background-color: $red--light;
       border-radius: 4px;
     }
     .statusbar__area {
@@ -77,7 +77,7 @@ export default {
         width: 22px;
         height: 22px;
         border-radius: 11px;
-        border: 2px solid $silver;
+        border: 2px solid $red--light;
         background-color: $white;
         position: relative;
         margin-left: 10px;
