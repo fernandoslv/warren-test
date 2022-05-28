@@ -2,13 +2,13 @@
   <div class="valores">
     <div class="start">
         <span>{{from}}</span>
-        <h3 class="fs-3 text--normal text--white">{{new Intl.NumberFormat('pt-br',{style: 'currency', currency: 'BRL'}).format(amount)}}</h3>
+        <h3 class="fs-5 text--normal text--white">{{new Intl.NumberFormat('pt-br',{style: 'currency', currency: 'BRL'}).format(amount)}}</h3>
     </div>
     <div class="middle"></div>
     <div class="middle--end"></div>
     <div class="end">        
         <span>{{to}}</span>
-        <h3 class="fs-3 text--normal">{{new Intl.NumberFormat('pt-br',{style: 'currency', currency: 'BRL'}).format(amount)}}</h3>
+        <h3 class="fs-5 text--normal">{{new Intl.NumberFormat('pt-br',{style: 'currency', currency: 'BRL'}).format(amount)}}</h3>
     </div>
   </div>
 </template>
@@ -21,12 +21,12 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/base.scss";
 .valores{
-    margin-top: 50px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     .start {
-      width: 200px;
-      height: 100px;
+      width: 150px;
+      height: 80px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -35,27 +35,27 @@ export default {
       border-radius: 10px 0px 0px 10px;
       color: $white;
       span{
-          padding: 5px 0;
+          padding: 5px 10px;
       }
     }
     .middle {
       width: 0;
       height: 0;
-      border-top: 50px solid transparent;
-      border-bottom: 50px solid transparent;
-      border-left: 20px solid $silver;
+      border-top: 40px solid transparent;
+      border-bottom: 40px solid transparent;
+      border-left: 15px solid $silver;
     }
     .middle--end {
       width: 0;
       height: 0;
-      border-top: 50px solid transparent;
-      border-bottom: 50px solid transparent;
-      border-left: 20px solid $white;
+      border-top: 40px solid transparent;
+      border-bottom: 40px solid transparent;
+      border-left: 15px solid $white;
       background-color: $secondary;
     }
     .end {
-      width: 200px;
-      height: 100px;
+      width: 150px;
+      height: 80px;
       display: flex;
       flex-direction: column;
       justify-content: center;

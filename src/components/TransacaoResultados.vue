@@ -1,28 +1,40 @@
 <template>
-  <TransacaoFiltro v-on:filtarPorStatusPorTitulo="TransacoesPorStatusPorTitulo"/>
+  <TransacaoFiltro
+    v-on:filtarPorStatusPorTitulo="TransacoesPorStatusPorTitulo"
+  />
   <LoaderSearch v-if="!transacoes" />
-  <table v-if="transacoes" class="table">
-    <thead class="thead">
-      <tr>
-        <th class="th text--white text--normal text--uppercase fs-5">Título</th>
-        <th class="th text--white text--normal text--uppercase fs-5">Descrição</th>
-        <th class="th text--white text--normal text--uppercase fs-5">Status</th>
-        <th class="th text--white text--normal text--uppercase fs-5">Valor</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        @click="selecionarTransacao(item.id)"
-        v-for="item in transacoes"
-        :key="item.id"
-      >
-        <td class="td">{{ item.title }}</td>
-        <td class="td">{{ item.description }}</td>
-        <td class="td">{{ item.status }}</td>
-        <td class="td">{{ item.amount }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="responsive">
+    <table v-if="transacoes" class="table">
+      <thead class="thead">
+        <tr>
+          <th class="th text--white text--normal text--uppercase fs-5">
+            Título
+          </th>
+          <th class="th text--white text--normal text--uppercase fs-5">
+            Descrição
+          </th>
+          <th class="th text--white text--normal text--uppercase fs-5">
+            Status
+          </th>
+          <th class="th text--white text--normal text--uppercase fs-5">
+            Valor
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          @click="selecionarTransacao(item.id)"
+          v-for="item in transacoes"
+          :key="item.id"
+        >
+          <td class="td text--left text--uppercase">{{ item.title }}</td>
+          <td class="td text--left">{{ item.description }}</td>
+          <td class="td text--left text--uppercase text--bold" :class='{"text--concluida":item.status=="processed", "text--processada":item.status=="processing", "text--solicitada":item.status=="created"}' >{{ item.status }}</td>
+          <td class="td text--bold text--right">{{new Intl.NumberFormat('pt-br',{style: 'currency', currency: 'BRL'}).format(item.amount)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <TransacaoDetalhe ref="modal" />
 </template>
 
@@ -51,16 +63,19 @@ export default {
       "transacoesPorStatusProcessada",
       "transacoesPorStatusConcluida",
     ]),
-  },    
-  async mounted() {    
-    await this.carregarTransacoes();    
+  },
+  async mounted() {
+    await this.carregarTransacoes();
   },
   methods: {
-    TransacoesPorStatusPorTitulo(filtros){      
-      this.transacoes = this.$store.getters.transacoesPorStatusPorTitulo(filtros.statusValue, filtros.inputValue);      
+    TransacoesPorStatusPorTitulo(filtros) {
+      this.transacoes = this.$store.getters.transacoesPorStatusPorTitulo(
+        filtros.statusValue,
+        filtros.inputValue
+      );
     },
     TransacoesPorStatusTodos() {
-      this.transacoes = this.$store.getters["transacoesPorStatusTodos"];      
+      this.transacoes = this.$store.getters["transacoesPorStatusTodos"];
     },
     TransacoesPorStatusSolicitada() {
       this.transacoes = this.$store.getters["transacoesPorStatusSolicitada"];
@@ -70,9 +85,9 @@ export default {
     },
     TransacoesPorStatusConcluida() {
       this.transacoes = this.$store.getters["transacoesPorStatusConcluida"];
-    },    
+    },
     async carregarTransacoes() {
-      await this.$store.dispatch("carregarTransacoes");      
+      await this.$store.dispatch("carregarTransacoes");
       this.transacoes = this.$store.state.listaTransacoes;
     },
     async selecionarTransacao(id) {
@@ -86,44 +101,47 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/base.scss";
 
-.table {
-  caption-side: bottom;
-  border-collapse: collapse;
-  border: 0;
-  width: 100%;
-
-  -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 0.5s; /* Firefox < 16 */
-  -ms-animation: fadein 0.5s; /* Internet Explorer */
-  -o-animation: fadein 0.5s; /* Opera < 12.1 */
-  animation: fadein 0.5s;
-  .thead {
-    vertical-align: bottom;
-    th {
-      background: $silver;
-      padding: 12px 12px;
+  .table {
+    caption-side: bottom;
+    border-collapse: collapse;
+    border: 0;
+    width: 100%;
+  
+    -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 0.5s; /* Firefox < 16 */
+    -ms-animation: fadein 0.5s; /* Internet Explorer */
+    -o-animation: fadein 0.5s; /* Opera < 12.1 */
+    animation: fadein 0.5s;
+    .thead {
+      vertical-align: bottom;
+      th {
+        background: $silver;
+        padding: 8px 8px;
+        border: 1px solid $silver;
+      }
+    }
+    tbody {
+      tr:hover{
+        background: #bcc8d6 !important;
+      }
+      tr:nth-child(even) {
+        background: #fff;
+      }
+      tr:nth-child(odd) {
+        background: #ebf1f8;
+      }
+    }
+    .th {
+      display: table-cell;
+      vertical-align: inherit;
+      font-weight: bold;
+    }
+    .td {
+      display: table-cell;
       border: 1px solid #ddd;
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      cursor: pointer;
     }
   }
-  tbody {
-    tr:nth-child(even) {
-      background: #fff;
-    }
-    tr:nth-child(odd) {
-      background: #ebf1f8;
-    }
-  }
-  .th {
-    display: table-cell;
-    vertical-align: inherit;
-    font-weight: bold;
-  }
-  .td {
-    display: table-cell;
-    border: 1px solid #ddd;
-    padding: 12px 10px;
-    font-size: 0.85rem;
-    cursor: pointer;
-  }
-}
 </style>

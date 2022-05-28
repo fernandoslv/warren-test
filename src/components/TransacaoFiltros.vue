@@ -1,18 +1,18 @@
 <template>
   <form>
     <div class="filtros">
-      <div class="filtros__section">
+      <div class="filtros__section">          
         <input
           @keyup="filtrarPorTitulo"
           v-model="filtros.inputValue"
-          class="inputsearch"
+          class="inputsearch fs-5"
           placeholder="Filtrar pelo título"
           type="text"
         />
       </div>
       <div class="filtros__section">
-        <select @change="filtrarPorTitulo" v-model="filtros.statusValue">
-          <option
+        <select class="fs-5" @change="filtrarPorTitulo" v-model="filtros.statusValue">
+          <option class=" fs-5"
             v-for="(status, index) in statusOptions"
             :key="index"
             :value="status.cod"

@@ -6,8 +6,8 @@
   >
     <div class="modal" :class="{ 'modal--block': isBlock }">
       <div class="modal__header">
-        <h3 class="fs-3 text--uppercase text--normal">{{ transacao.title }}</h3>
-        <span class="close fs-3" @click.stop="hideModal()">x</span>
+        <h3 class="fs-4 text--uppercase text--center text--normal">{{ transacao.title }}</h3>
+        <span class="close" @click.stop="hideModal()">x</span>
       </div>
       <div class="modal__body">
         <TransacaoStatusBar :status="transacao.status" />
@@ -73,24 +73,43 @@ export default {
   display: flex;
 }
 
-.modal {
-  width: 600px;
+.modal {  
   border-radius: 5px 5px 5px 5px;
   box-shadow: 0px 0px 15px 5px #888;
   background-color: #fff;
   position: relative;
   display: none;
   .modal__header {
-    padding: 30px 40px 20px 40px;
+    padding: 20px 20px 10px 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
     align-items: center;
     color: $silver;
+    border-bottom: 1px solid $silver;
+    .close{        
+        background-color: $silver;        
+        color: $white;
+        border-radius: 16px;
+        width: 32px;      
+        height: 32px;
+        padding: 7px 10px;        
+    }
   }
   .modal__body {
-    height: 300px;
-    padding: 30px 70px;
+    height: 240px;
+    padding: 20px 30px;
   }
+}
+
+@media only screen and (min-width: 601px){
+    .modal{
+        width: 500px;        
+    }
+}
+@media only screen and (max-width: 600px){
+    .modal{
+        width: 100%;        
+    }
 }
 
 .modal--block {

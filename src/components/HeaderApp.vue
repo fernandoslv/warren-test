@@ -20,6 +20,7 @@ header{
     align-items: center;
     padding: 0 30px;
     background-color: $pink;
-    height: 50px;    
+    height: 50px; 
+    width: 100%;   
 }
 </style>
