@@ -76,7 +76,7 @@ export default {
     LoaderSearch,
     TransacaoDetalhe,
     TransacaoFiltro,
-    TransacaoErroMensagem,
+    TransacaoErroMensagem    
   },
   data() {
     return {
