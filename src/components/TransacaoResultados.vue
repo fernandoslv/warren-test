@@ -1,14 +1,11 @@
 <template>
-  <TransacaoFiltro v-on:filtarPorSolicitada="apenasTransacoesPorStatusSolicitada"/>
-  <LoaderSearch v-if="!transacoesPorStatusTodos" />
-
-  <table v-if="transacoesPorStatusTodos" class="table">
+  <TransacaoFiltro v-on:filtarPorStatusPorTitulo="TransacoesPorStatusPorTitulo"/>
+  <LoaderSearch v-if="!transacoes" />
+  <table v-if="transacoes" class="table">
     <thead class="thead">
       <tr>
         <th class="th text--white text--normal text--uppercase fs-5">Título</th>
-        <th class="th text--white text--normal text--uppercase fs-5">
-          Descrição
-        </th>
+        <th class="th text--white text--normal text--uppercase fs-5">Descrição</th>
         <th class="th text--white text--normal text--uppercase fs-5">Status</th>
         <th class="th text--white text--normal text--uppercase fs-5">Valor</th>
       </tr>
@@ -16,7 +13,7 @@
     <tbody>
       <tr
         @click="selecionarTransacao(item.id)"
-        v-for="item in transacoesPorStatusTodos"
+        v-for="item in transacoes"
         :key="item.id"
       >
         <td class="td">{{ item.title }}</td>
@@ -30,37 +27,56 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import LoaderSearch from "./LoaderSearch.vue";
 import TransacaoDetalhe from "./TransacaoDetalhe.vue";
 import TransacaoFiltro from "./TransacaoFiltros.vue";
 
 export default {
   name: "TransacaoResultados",
-  components: { LoaderSearch, TransacaoDetalhe, TransacaoFiltro },  
+  components: { LoaderSearch, TransacaoDetalhe, TransacaoFiltro },
   data() {
-    return {      
+    return {
       transacaoId: null,
-      modal:false,
-      transacoes:null
+      modal: false,
+      transacoes: null,
     };
   },
-  computed:{    
-    //mapState(["listaTransacoes"]),    
-    ...mapGetters(["transacoesPorStatusPorFiltro","transacoesPorStatusTodos", "transacoesPorStatusSolicitada", "transacoesPorStatusProcessada", "transacoesPorStatusConcluida"])
-  },  
-  async mounted() {
-    this.carregarTransacoes();
+  computed: {
+    ...mapState,
+    ...mapGetters([
+      "transacoesPorStatusPorFiltro",
+      "transacoesPorStatusTodos",
+      "transacoesPorStatusSolicitada",
+      "transacoesPorStatusProcessada",
+      "transacoesPorStatusConcluida",
+    ]),
+  },    
+  async mounted() {    
+    await this.carregarTransacoes();    
   },
   methods: {
-    apenasTransacoesPorStatusSolicitada(){      
-      this.transacoes = this.$store.transacoesPorStatusSolicitada;
+    TransacoesPorStatusPorTitulo(filtros){      
+      this.transacoes = this.$store.getters.transacoesPorStatusPorTitulo(filtros.statusValue, filtros.inputValue);      
     },
+    TransacoesPorStatusTodos() {
+      this.transacoes = this.$store.getters["transacoesPorStatusTodos"];      
+    },
+    TransacoesPorStatusSolicitada() {
+      this.transacoes = this.$store.getters["transacoesPorStatusSolicitada"];
+    },
+    TransacoesPorStatusProcessada() {
+      this.transacoes = this.$store.getters["transacoesPorStatusProcessada"];
+    },
+    TransacoesPorStatusConcluida() {
+      this.transacoes = this.$store.getters["transacoesPorStatusConcluida"];
+    },    
     async carregarTransacoes() {
-      await this.$store.dispatch("carregarTransacoes")        
+      await this.$store.dispatch("carregarTransacoes");      
+      this.transacoes = this.$store.state.listaTransacoes;
     },
-    async selecionarTransacao(id) {    
-      await this.$store.dispatch("carregarDetalhe", id);
+    async selecionarTransacao(id) {
+      this.$store.dispatch("carregarDetalhe", id);
       this.$refs.modal.showModal();
     },
   },
@@ -76,11 +92,11 @@ export default {
   border: 0;
   width: 100%;
 
-  -webkit-animation: fadein .5s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein .5s; /* Firefox < 16 */
-  -ms-animation: fadein .5s; /* Internet Explorer */
-  -o-animation: fadein .5s; /* Opera < 12.1 */
-  animation: fadein .5s;
+  -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 0.5s; /* Firefox < 16 */
+  -ms-animation: fadein 0.5s; /* Internet Explorer */
+  -o-animation: fadein 0.5s; /* Opera < 12.1 */
+  animation: fadein 0.5s;
   .thead {
     vertical-align: bottom;
     th {

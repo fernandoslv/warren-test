@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import axios from "axios";
+const utils = require('../utils/index.js');
 
 export default createStore({
   state: {
@@ -8,7 +9,7 @@ export default createStore({
   },
   getters: {
     transacoesPorStatusTodos(state) {
-      return state.listaTransacoes
+      return state.listaTransacoes;
     },
     transacoesPorStatusSolicitada(state) {
       return state.listaTransacoes?.filter(transacao => transacao.status == "created")
@@ -19,8 +20,15 @@ export default createStore({
     transacoesPorStatusConcluida(state) {
       return state.listaTransacoes?.filter(transacao => transacao.status == "processed")
     },
-    transacoesPorStatusPorFiltro(state) {      
-      return state.listaTransacoes?.filter(t => t.status == "processed")?.filter( t => t.title.includes('Resgate'));
+    transacoesPorStatusPorFiltro(state) {
+      return state.listaTransacoes?.filter(t => t.status == "processed")?.filter(t => t.title.includes('Resgate'));
+    },
+    transacoesPorStatusPorTitulo: (state) => (status, titulo) => {
+      let filtrado = state.listaTransacoes.filter(t => utils.removerAcentos(t.title).toUpperCase().includes( utils.removerAcentos(titulo.toUpperCase())));
+      if(status!='0'){
+        filtrado = filtrado?.filter(t => t.status == status);      
+      }
+      return filtrado;
     }
   },
   mutations: {
@@ -32,18 +40,19 @@ export default createStore({
     }
   },
   actions: {
-    carregarTransacoes({ commit }) {
-      axios.get("https://warren-transactions-api.herokuapp.com/api/transactions")
+    async carregarTransacoes({ commit }) {
+      await axios.get("https://warren-transactions-api.herokuapp.com/api/transactions")
         .then((response) => {
           commit('carregarTransacoes', response.data);
         })
     },
-    carregarDetalhe({ commit }, id) {
-      axios.get(`https://warren-transactions-api.herokuapp.com/api/transactions/${id}`)
+    async carregarDetalhe({ commit }, id) {
+      await axios.get(`https://warren-transactions-api.herokuapp.com/api/transactions/${id}`)
         .then((response) => {
           commit('carregarDetalhe', response.data);
         })
-    },
+    }
+    
   },
   modules: {
   }
