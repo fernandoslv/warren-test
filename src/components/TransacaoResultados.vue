@@ -129,7 +129,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/base.scss";
+@import "@/styles/variables.scss";
 
 .table {
   caption-side: bottom;

@@ -6,7 +6,7 @@
 </script>
 
 <style lang="scss">
-@import "@/assets/base.scss";
+@import "@/styles/base.scss";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

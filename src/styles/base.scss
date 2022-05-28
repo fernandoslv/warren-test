@@ -1,15 +1,4 @@
-$pink: #e02b57;
-$silver: #3e4c5d;
-$white: #ffffff;
-$secondary: #ebf1f8;
-$solicitada:rgb(5, 82, 199);
-$processada:$silver;
-$concluida:rgb(5, 143, 5);
-$solicitada--light:#455d6f;
-$processada--light:rgba(104,74,0,.9);
-$concluida--light:rgba(0,95,18,.85);
-$red--light:#e02b57;
-
+@import "@/styles/variables.scss";
 
 *{
     padding: 0;
