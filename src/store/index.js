@@ -31,11 +31,17 @@ export default createStore({
     },
     erroCarregarTransacoes(state, error){      
       state.listaTransacoes = null;
-      state.erroMensagem = 'Ops! Não foi possível exibir suas transações.'
+      state.erroMensagem = `
+      Ops! Não foi possível exibir suas transações. 
+      Erro: ${error.response.status}
+      `
     },
     erroCarregarDetalhe(state, error){      
       state.listaTransacoes = null;
-      state.erroMensagem = 'Ops! Não foi possível exibir detalhes da transação.'
+      state.erroMensagem = `
+      Ops! Não foi possível exibir detalhes da transação. 
+      Erro: ${error.response.status}
+      `
     }
   },
   actions: {
