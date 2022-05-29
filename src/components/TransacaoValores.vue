@@ -1,7 +1,7 @@
 <template>
   <div class="valores">
     <div class="start">
-      <span>{{ from }}</span>
+      <span>De <strong>{{ from }}</strong></span>
       <h3 class="fs-5 text--normal text--white">
         {{ amount }}
       </h3>
@@ -9,7 +9,7 @@
     <div class="middle"></div>
     <div class="middle--end"></div>
     <div class="end">
-      <span>{{ to }}</span>
+      <span>Para <strong>{{ to }}</strong></span>
       <h3 class="fs-5 text--normal">
         {{ amount }}
       </h3>

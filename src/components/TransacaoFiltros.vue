@@ -25,14 +25,11 @@
         </option>
       </select>
     </div>
-    <div class="filtros__section">
-      <button
-        class="limpar btn btn--primary"
-        @click="limpar()"
-        v-if="filtros.inputValue || filtros.statusValue!=0"
-      >
-        Limpar
-      </button>
+    <div
+      class="filtros__section"
+      v-if="filtros.inputValue || filtros.statusValue != 0"
+    >
+      <button class="limpar btn btn--primary" @click="limpar()">Limpar</button>
     </div>
   </div>
 </template>
@@ -100,22 +97,37 @@ select {
 
 .filtros {
   display: flex;
+  width: 100%;
   justify-content: start;
   align-items: center;
   margin: 20px 0px;
   .filtros__section {
-    margin: 10px;
+    padding: 0px 5px;
+    min-width: 185px;
   }
 }
 
-.btn {  
+
+@media only screen and (max-width: 600px) {
+  .filtros {
+    flex-direction: column;
+    margin: 20px 0px;
+    .filtros__section {
+      padding: 5px 0px;
+      width: 100%;
+    }
+  }
+}
+
+.btn {
   padding: 5px 10px;
   height: 35px;
   border-radius: 4px;
+  width: 100%;
   &--primary {
     border: 1px solid $silver;
     background-color: $secondary;
-    transition: ease .5s;
+    transition: ease 0.5s;
   }
   &--primary:hover {
     background-color: $silver;
