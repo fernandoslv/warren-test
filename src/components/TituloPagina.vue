@@ -1,7 +1,7 @@
 <template>
   <div class="container container--border container--space">
     <div class="fs">
-      <h1 class="fs-1 text--left">{{ titulo }}</h1>
+      <h1 class="titulo fs-1 text--left">{{ titulo }}</h1>
     </div>
   </div>
 </template>

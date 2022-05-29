@@ -19,5 +19,8 @@ export default {
     TransacaoResultados,
     TituloPagina  
   },
+  mounted() {
+    document.title = 'Warren - Minhas Transações'
+  }
 };
 </script>

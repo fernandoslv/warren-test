@@ -11,7 +11,7 @@
         />
       </div>
       <div class="filtros__section">
-        <select class="fs-5" @change="filtrarPorTitulo" v-model="filtros.statusValue">
+        <select class="selectstatus fs-5" @change="filtrarPorTitulo" v-model="filtros.statusValue">
           <option class=" fs-5"
             v-for="(status, index) in statusOptions"
             :key="index"
@@ -38,7 +38,7 @@ export default {
       statusOptions: [
         {
           cod: "0",
-          desc: "Todos status",
+          desc: "Todos os Status",
         },
         {
           cod: "created",

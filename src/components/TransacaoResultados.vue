@@ -7,19 +7,11 @@
     <table class="table">
       <thead class="thead">
         <tr>
-          <th class="th text--white text--normal text--uppercase fs-6">
-            Título
-          </th>
+          <th class="th text--white text--normal text--uppercase fs-6">Título</th>
           <th class="th text--white text--normal text--uppercase fs-6">Data</th>
-          <th class="th text--white text--normal text--uppercase fs-6">
-            Descrição
-          </th>
-          <th class="th text--white text--normal text--uppercase fs-6">
-            Status
-          </th>
-          <th class="th text--white text--normal text--uppercase fs-6">
-            Valor
-          </th>
+          <th class="th text--white text--normal text--uppercase fs-6">Descrição</th>
+          <th class="th text--white text--normal text--uppercase fs-6">Status</th>
+          <th class="th text--white text--normal text--uppercase fs-6">Valor</th>
         </tr>
       </thead>
       <tbody>
@@ -29,9 +21,9 @@
             v-for="item in transacoes"
             :key="item.id"
           >
-            <td class="td text--left text--uppercase">{{ item.title }}</td>
-            <td class="td text--left text--uppercase">{{ item.date }}</td>
-            <td class="td text--left">{{ item.description }}</td>
+            <td class="td text--left text--uppercase">{{item.title}}</td>
+            <td class="td text--left text--uppercase">{{item.date}}</td>
+            <td class="td text--left">{{item.description}}</td>
             <td
               class="td text--center text--white text--uppercase text--bold"
               :class="{
@@ -40,9 +32,9 @@
                 'bg--solicitada': item.status == 'created',
               }"
             >
-              {{ item.status }}
+              {{item.status}}
             </td>
-            <td class="td text--bold text--right">{{ item.amount }}</td>
+            <td class="td text--bold text--right">{{item.amount}}</td>
           </tr>
           <TransacaoDetalhe ref="modal" />
         </template>

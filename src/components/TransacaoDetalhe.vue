@@ -7,13 +7,13 @@
   >
     <div class="modal" :class="{ 'modal--block': isBlock }">
       <div class="modal__header">        
-        <h3 class="fs-5 text--uppercase text--center text--normal">
+        <h3 class="titulomodal fs-5 text--uppercase text--center text--normal">
             Detalhes da Transação
         </h3>
         <span class="close" @click.stop="hideModal()">x</span>
       </div>
       <div v-if ='detalhe' class="modal__body">
-        <h4 v-if ='detalhe' class="fs-3 text--uppercase text--center text--normal">
+        <h4 v-if ='detalhe' class="titulodetalhe fs-3 text--uppercase text--center text--normal">
           {{ detalhe.title }}
         </h4>        
         <TransacaoStatusBar :status="detalhe.status" />
