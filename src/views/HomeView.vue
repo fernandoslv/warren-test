@@ -1,7 +1,7 @@
 <template>
   <HeaderApp />
   <TituloPagina titulo="Minhas Transações"/>
-  <div class="container">
+  <div class="container container--mb">
     <TransacaoResultados />
   </div>  
 </template>
@@ -24,3 +24,10 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.container{
+  &--mb{
+    margin-bottom: 100px;
+  }
+}
+</style>
