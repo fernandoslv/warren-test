@@ -16,7 +16,7 @@
     </div>
   </div>
   <div v-if="date" class="datatransacao">
-    <span class="fs-6">
+    <span>
       {{ date }}
     </span>
   </div>

@@ -17,7 +17,7 @@ export default {
         border-bottom: 1px solid #ddd;
     }
     &--space{
-        padding: 0 0 10px 0;
+        padding: 0 0 10px 20px;
     }
 }
 </style>

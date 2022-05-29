@@ -7,11 +7,11 @@
     <table class="table">
       <thead class="thead">
         <tr>
-          <th class="th text--white text--normal text--uppercase fs-6">Título</th>
-          <th class="th text--white text--normal text--uppercase fs-6">Data</th>
-          <th class="th text--white text--normal text--uppercase fs-6">Descrição</th>
-          <th class="th text--white text--normal text--uppercase fs-6">Status</th>
-          <th class="th text--white text--normal text--uppercase fs-6">Valor</th>
+          <th class="th text--white text--normal text--uppercase">Título</th>
+          <th class="th text--white text--normal text--uppercase">Data</th>
+          <th class="th text--white text--normal text--uppercase">Descrição</th>
+          <th class="th text--white text--normal text--uppercase">Status</th>
+          <th class="th text--white text--normal text--uppercase">Valor</th>
         </tr>
       </thead>
       <tbody>
@@ -21,24 +21,28 @@
             v-for="item in transacoes"
             :key="item.id"
           >
-            <td class="td text--left text--uppercase">{{item.title}}</td>
-            <td class="td text--left text--uppercase">{{item.date}}</td>
-            <td class="td text--left">{{item.description}}</td>
-            <td
-              class="td text--center text--white text--uppercase text--bold"
-              :class="{
-                'bg--concluida': item.status == 'processed',
-                'bg--processada': item.status == 'processing',
-                'bg--solicitada': item.status == 'created',
-              }"
-            >
-              {{item.status}}
+            <td class="td text--left text--uppercase">{{ item.title }}</td>
+            <td class="td text--right text--uppercase">{{ item.date }}</td>
+            <td class="td text--left">{{ item.description }}</td>
+            <td class="td text--center text--silver text--uppercase text--bold">
+              <div class="status-col">
+                <div
+                  class="status-col__bullet"
+                  :class="{
+                    'status-col__bullet--concluida': item.status == 'processed',
+                    'status-col__bullet--processada':
+                      item.status == 'processing',
+                    'status-col__bullet--solicitada': item.status == 'created',
+                  }"
+                ></div>
+                <div class="status-col__value">{{ item.status }}</div>
+              </div>
             </td>
-            <td class="td text--bold text--right">{{item.amount}}</td>
+            <td class="td text--bold text--right">{{ item.amount }}</td>
           </tr>
           <TransacaoDetalhe ref="modal" />
         </template>
-        <tr v-else>
+        <tr class="empyt" v-else>
           <td colspan="5">
             <TransacaoErroMensagem
               v-if="erroMensagem"
@@ -68,7 +72,7 @@ export default {
     LoaderSearch,
     TransacaoDetalhe,
     TransacaoFiltro,
-    TransacaoErroMensagem    
+    TransacaoErroMensagem,
   },
   data() {
     return {
@@ -152,6 +156,13 @@ export default {
     tr:nth-child(odd) {
       background: #ebf1f8;
     }
+    tr.empyt {
+      background: #fff;
+      border: 1px solid #ddd;
+    }
+    tr.empyt:hover {
+      background: #fff !important;
+    }
   }
   .th {
     display: table-cell;
@@ -164,6 +175,26 @@ export default {
     padding: 8px 10px;
     font-size: 0.85rem;
     cursor: pointer;
+    .status-col {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .status-col__bullet {
+        height: 15px;
+        width: 15px;
+        border-radius: 7px;
+        margin-right: 5px;
+        &--solicitada {
+          background-color: $solicitada--light;
+        }
+        &--processada {
+          background-color: $processada--light;
+        }
+        &--concluida {
+          background-color: $concluida--light;
+        }
+      }
+    }
   }
 }
 </style>
