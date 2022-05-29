@@ -38,6 +38,11 @@ npm run build
 npm run cypress:open
 ```
 
+### Rodar testes automatizados com Jest
+```
+npm run cypress:open
+```
+
 ### Lints and fixes files
 ```
 npm run lint

@@ -1,7 +1,5 @@
 <template>
-  <div
-    @keyup.esc="hideModal" 
-    @click.stop="hideModal"
+  <div        
     class="backdrop"
     :class="{ 'backdrop--block': isBlock }"
   >
