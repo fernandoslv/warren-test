@@ -54,8 +54,7 @@ export default {
       this.detalhe = null;
       this.isBlock = true;
       await this.$store.dispatch("carregarDetalhe", id);
-      this.detalhe = this.$store.state.transacao;
-      console.log(this.detalhe);
+      this.detalhe = this.$store.state.transacao;      
     },
   },
 };

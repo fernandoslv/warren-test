@@ -40,7 +40,7 @@ npm run cypress:open
 
 ### Rodar testes automatizados com Jest
 ```
-npm run cypress:open
+npm run jest
 ```
 
 ### Lints and fixes files

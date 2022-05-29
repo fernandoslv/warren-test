@@ -29,13 +29,11 @@ export default createStore({
       funcoesTransacao.normalizarDadosTransacoes(state.transacao);
       state.erroMensagem = '';
     },
-    erroCarregarTransacoes(state, error){
-      console.log(error);
+    erroCarregarTransacoes(state, error){      
       state.listaTransacoes = null;
       state.erroMensagem = 'Ops! Não foi possível exibir suas transações.'
     },
-    erroCarregarDetalhe(state, error){
-      console.log(error);
+    erroCarregarDetalhe(state, error){      
       state.listaTransacoes = null;
       state.erroMensagem = 'Ops! Não foi possível exibir detalhes da transação.'
     }
