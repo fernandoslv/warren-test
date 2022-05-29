@@ -1,28 +1,31 @@
 <template>
-  <form>
-    <div class="filtros">
-      <div class="filtros__section">          
-        <input
-          @keyup="filtrarPorTitulo"
-          v-model="filtros.inputValue"
-          class="inputsearch fs-5"
-          placeholder="Filtrar pelo título"
-          type="text"
-        />
-      </div>
-      <div class="filtros__section">
-        <select class="selectstatus fs-5" @change="filtrarPorTitulo" v-model="filtros.statusValue">
-          <option class=" fs-5"
-            v-for="(status, index) in statusOptions"
-            :key="index"
-            :value="status.cod"
-          >
-            {{ status.desc }}
-          </option>
-        </select>
-      </div>
+  <div class="filtros">
+    <div class="filtros__section">
+      <input
+        @keyup="filtrarPorTitulo"
+        v-model="filtros.inputValue"
+        class="inputsearch fs-5"
+        placeholder="Filtrar pelo título"
+        type="text"
+      />
     </div>
-  </form>
+    <div class="filtros__section">
+      <select
+        class="selectstatus fs-5"
+        @change="filtrarPorTitulo"
+        v-model="filtros.statusValue"
+      >
+        <option
+          class="fs-5"
+          v-for="(status, index) in statusOptions"
+          :key="index"
+          :value="status.cod"
+        >
+          {{ status.desc }}
+        </option>
+      </select>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -58,7 +61,7 @@ export default {
   methods: {
     filtrarPorTitulo() {
       this.$emit("filtarPorStatusPorTitulo", this.filtros);
-    }
+    },
   },
 };
 </script>
