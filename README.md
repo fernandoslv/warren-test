@@ -1,25 +1,41 @@
 # warren-transacoes-test
 
 Projeto desenvolvido para o teste de seleção de Frontend Developer da Warren.
-O projeto consiste numa aplicação que consome um endpoint de transações e outro de detalhamento da transação.
-A aplicação foi desenvolvida em VueJS 3.2.13, Vuex 4.0.0, SCSS, ES6.
+O projeto consiste numa aplicação que consome uma API de Transações Financeira, com um endpoint que retorna uma lista Transações e outro com o Detalhamento da Transação.
 
-Para visualizar o demo da aplicação acess: https://warren-test.vercel.app/
+Conforme documentação disponibilizada, o objetivo é aplicação é:
+    - Apresentar a lista de Transações ordenadas por Data;
+    - Exibir o Detalhamento da Transação num janela modal;
+    - Apresentar campos para filtrar os resultados por Título e Status da Transação.
+
+A aplicação foi desenvolvida utilizando:
+    - VueJS 3.2;
+    - Vuex 4.0;
+    - SCSS;
+    - ES6;
+    - Testes automatizado E2E com Cypress 9.7.
+
+Para visualizar o demo da aplicação acesse: https://warren-test.vercel.app/
 
 
-## Project setup
+## Setup do Projeto
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Iniciar a Aplicação
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Build para Produção
 ```
 npm run build
+```
+
+### Rodar testes automatizado com Cypress
+```
+npm run cypress:open
 ```
 
 ### Lints and fixes files
