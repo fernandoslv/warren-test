@@ -3,7 +3,7 @@
 Projeto desenvolvido para o teste de seleção de Frontend Developer da Warren.
 O projeto consiste numa aplicação que consome uma API de Transações Financeira, com um endpoint que retorna uma lista Transações e outro com o Detalhamento da Transação.
 
-Conforme documentação disponibilizada, o objetivo é aplicação é:
+Conforme documentação disponibilizada, o objetivo da é aplicação é:
 - Apresentar a lista de Transações ordenadas por Data;
 - Exibir o Detalhamento da Transação num janela modal;
 - Apresentar campos para filtrar os resultados por Título e Status da Transação.
