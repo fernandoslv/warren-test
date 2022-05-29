@@ -25,6 +25,15 @@
         </option>
       </select>
     </div>
+    <div class="filtros__section">
+      <button
+        class="limpar btn btn--primary"
+        @click="limpar()"
+        v-if="filtros.inputValue || filtros.statusValue!=0"
+      >
+        Limpar
+      </button>
+    </div>
   </div>
 </template>
 
@@ -40,7 +49,7 @@ export default {
       },
       statusOptions: [
         {
-          cod: "0",
+          cod: 0,
           desc: "Todos os Status",
         },
         {
@@ -61,6 +70,11 @@ export default {
   methods: {
     filtrarPorTitulo() {
       this.$emit("filtarPorStatusPorTitulo", this.filtros);
+    },
+    limpar() {
+      this.filtros.statusValue = 0;
+      this.filtros.inputValue = "";
+      this.filtrarPorTitulo();
     },
   },
 };
@@ -87,9 +101,25 @@ select {
 .filtros {
   display: flex;
   justify-content: start;
+  align-items: center;
   margin: 20px 0px;
   .filtros__section {
     margin: 10px;
+  }
+}
+
+.btn {  
+  padding: 5px 10px;
+  height: 35px;
+  border-radius: 4px;
+  &--primary {
+    border: 1px solid $silver;
+    background-color: $secondary;
+    transition: ease .5s;
+  }
+  &--primary:hover {
+    background-color: $silver;
+    color: $white;
   }
 }
 </style>

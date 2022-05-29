@@ -134,12 +134,51 @@ describe('Warren - Minhas Transações', () => {
     })
   })
 
-  context('Ações com filtro - Preenchimento campo input com valor inexistente', () => {
+  context('Ações com filtro - Preenchimento campo input com valor inexistente na coluna Título', () => {
+    beforeEach(() => {
+      cy.get('.inputsearch').clear()
+      cy.get('.selectstatus').select('Todos os Status')
+    })
     it('Digitar abcd no campo input', () => {
       cy.get('.inputsearch').clear()
       cy.get('.inputsearch').type('abcd').should('have.value','abcd')
       cy.get('.mensagem').should('be.visible')
       cy.get('.mensagem span').should('have.text', 'Nenhuma transação corresponde aos filtros utilizados.')
+    })
+  })
+
+  context('Ações com filtro - Limpeza do formulario de filtros', () => {
+    beforeEach(() => {
+      cy.get('.inputsearch').clear()
+      cy.get('.selectstatus').select('Todos os Status')
+    })
+    it('Clicar no botão Limpar. Apenas input preenchido', () => {
+      cy.get('.inputsearch').type('Movimen').should('have.value','Movimen')
+      cy.get('tbody > tr').should('have.length', 5)
+      cy.get('.limpar').should('be.visible')
+      cy.get('.limpar').click()
+      cy.get('.inputsearch').should('have.text', '')
+      cy.get('.selectstatus option:selected').should('have.attr', 'value').and('equal', '0');
+      cy.get('tbody > tr').should('have.length', 21)
+    })
+    it('Clicar no botão Limpar. Apenas select alterado', () => { 
+      cy.get('.selectstatus').select('Concluído')     
+      cy.get('tbody > tr').should('have.length', 7)
+      cy.get('.limpar').should('be.visible')
+      cy.get('.limpar').click()
+      cy.get('.inputsearch').should('have.text', '')
+      cy.get('.selectstatus option:selected').should('have.attr', 'value').and('equal', '0');
+      cy.get('tbody > tr').should('have.length', 21)
+    })
+    it('Clicar no botão Limpar. Input e Select alterados', () => { 
+      cy.get('.selectstatus').select('Solicitado')     
+      cy.get('tbody > tr').should('have.length', 7)
+      cy.get('.limpar').should('be.visible')
+      cy.get('.inputsearch').type('Resg').should('have.value','Resg')
+      cy.get('tbody > tr').should('have.length', 4)
+      cy.get('.limpar').click()
+      cy.get('.selectstatus option:selected').should('have.attr', 'value').and('equal', '0');
+      cy.get('tbody > tr').should('have.length', 21)
     })
   })
 
