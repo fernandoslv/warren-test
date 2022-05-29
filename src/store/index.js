@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import axios from "axios";
-const utils = require('../utils/index.js');
+const funcoesTransacao = require('../utils/FuncoesTransacoes');
+const normalizaDados = require('../utils/NormalizarDados');
 
 export default createStore({
   state: {
@@ -10,7 +11,7 @@ export default createStore({
   },
   getters: {    
     transacoesPorStatusPorTitulo: (state) => (status, titulo) => {
-      let filtrado = state.listaTransacoes.filter(t => utils.removerAcentos(t.title).toUpperCase().includes( utils.removerAcentos(titulo.toUpperCase())));
+      let filtrado = state.listaTransacoes.filter(t => normalizaDados.removerAcentos(t.title).toUpperCase().includes( normalizaDados.removerAcentos(titulo.toUpperCase())));
       if(status!='0'){
         filtrado = filtrado?.filter(t => t.status == status);      
       }
@@ -19,13 +20,13 @@ export default createStore({
   },
   mutations: {
     carregarTransacoes(state, listaTransacoes) {      
-      state.listaTransacoes = utils.ordernarTransacoesPorData(listaTransacoes);
-      state.listaTransacoes.map((transacao) => {return utils.normalizarDadosTransacoes(transacao)});
+      state.listaTransacoes = funcoesTransacao.ordernarTransacoesPorData(listaTransacoes);
+      state.listaTransacoes.map((transacao) => {return funcoesTransacao.normalizarDadosTransacoes(transacao)});
       state.erroMensagem = '';
     },
     carregarDetalhe(state, transacao) {
       state.transacao = transacao;
-      utils.normalizarDadosTransacoes(state.transacao);
+      funcoesTransacao.normalizarDadosTransacoes(state.transacao);
       state.erroMensagem = '';
     },
     erroCarregarTransacoes(state, error){

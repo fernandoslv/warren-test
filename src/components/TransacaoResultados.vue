@@ -83,13 +83,7 @@ export default {
   },
   computed: {
     ...mapState(["erroMensagem"]),
-    ...mapGetters([
-      "transacoesPorStatusPorFiltro",
-      "transacoesPorStatusTodos",
-      "transacoesPorStatusSolicitada",
-      "transacoesPorStatusProcessada",
-      "transacoesPorStatusConcluida",
-    ]),
+    ...mapGetters(["transacoesPorStatusPorTitulo"])
   },
   async mounted() {
     await this.carregarTransacoes();
