@@ -50,16 +50,16 @@ export default {
           desc: "Todos os Status",
         },
         {
-          cod: "created",
-          desc: "Solicitado",
+          cod: "Solicitada",
+          desc: "Solicitada",
         },
         {
-          cod: "processing",
-          desc: "Processado",
+          cod: "Processada",
+          desc: "Processada",
         },
         {
-          cod: "processed",
-          desc: "Concluído",
+          cod: "Concluída",
+          desc: "Concluída",
         },
       ],
     };

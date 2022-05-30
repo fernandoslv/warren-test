@@ -5,9 +5,9 @@
       <div
         class="statusbar__area"
         :class="{
-          'statusbar__area--solicitada': status == 'created',
-          'statusbar__area--processada': status == 'processing',
-          'statusbar__area--concluida': status == 'processed',
+          'statusbar__area--solicitada': status == 'Solicitada',
+          'statusbar__area--processada': status == 'Processada',
+          'statusbar__area--concluida': status == 'Concluída',
         }"
       >
         <div class="dot"></div>
@@ -17,26 +17,26 @@
       <span
         class="text--uppercase"
         :class="{
-          'fs-5 text--bold': status == 'created',
-          'fs-6': status != 'created',
+          'fs-5 text--bold': status == 'Solicitada',
+          'fs-6': status != 'Solicitada',
         }"
-        >Solicitado</span
+        >Solicitada</span
       >
       <span
         class="text--uppercase"
         :class="{
-          'fs-5 text--bold': status == 'processing',
-          'fs-6': status != 'processing',
+          'fs-5 text--bold': status == 'Processada',
+          'fs-6': status != 'Processada',
         }"
-        >Processado</span
+        >Processada</span
       >
       <span
         class="text--uppercase"
         :class="{
-          'fs-5 text--bold': status == 'processed',
-          'fs-6': status != 'processed',
+          'fs-5 text--bold': status == 'Concluída',
+          'fs-6': status != 'Concluída',
         }"
-        >Concluído</span
+        >Concluída</span
       >
     </div>
   </div>

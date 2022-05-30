@@ -20,9 +20,9 @@ describe('Warren - Minhas Transações', () => {
     it('Valores iniciais dos campos de filtro', () => {
       cy.get('.inputsearch').should('have.not.text');
       cy.get('.selectstatus option:nth-child(1)').should('have.text', 'Todos os Status');
-      cy.get('.selectstatus option:nth-child(2)').should('have.text', 'Solicitado');
-      cy.get('.selectstatus option:nth-child(3)').should('have.text', 'Processado');
-      cy.get('.selectstatus option:nth-child(4)').should('have.text', 'Concluído');
+      cy.get('.selectstatus option:nth-child(2)').should('have.text', 'Solicitada');
+      cy.get('.selectstatus option:nth-child(3)').should('have.text', 'Processada');
+      cy.get('.selectstatus option:nth-child(4)').should('have.text', 'Concluída');
       cy.get('.selectstatus option:selected').should('have.attr', 'value').and('equal', '0');
     })
   })
@@ -43,9 +43,9 @@ describe('Warren - Minhas Transações', () => {
       cy.get('tbody > :nth-child(1)').click();
       cy.get('.titulodetalhe').should('have.text', 'Resgate')
       cy.get('.statusbar__label > :nth-child(1)').should('have.class', 'fs-5')
-      cy.get('.start > span').should('have.text', 'Aposentadoria')
+      cy.get('.start > span').should('have.text', 'De Aposentadoria')
       cy.get('.start > .fs-5').contains('2.078,66')
-      cy.get('.end > span').should('have.text', 'Conta Warren')
+      cy.get('.end > span').should('have.text', 'Para Conta Warren')
       cy.get('.end > .fs-5').contains('2.078,66')
     })
     it('Botão fechar modal', () => {
@@ -77,7 +77,7 @@ describe('Warren - Minhas Transações', () => {
   context('Ações com filtro - Preenchimento campo input e select status = Solicitado', () => {
     beforeEach(() => {
       cy.get('.inputsearch').clear()
-      cy.get('.selectstatus').select('Solicitado')
+      cy.get('.selectstatus').select('Solicitada')
     })
     it('Digitar resgate no campo input e selecionar status Solicitado', () => {
       cy.get('.inputsearch').type('resgate').should('have.value','resgate')      
@@ -97,7 +97,7 @@ describe('Warren - Minhas Transações', () => {
   context('Ações com filtro - Preenchimento campo input e select status = Processado', () => {
     beforeEach(() => {
       cy.get('.inputsearch').clear()
-      cy.get('.selectstatus').select('Processado')
+      cy.get('.selectstatus').select('Processada')
     })
     it('Digitar resgate no campo input e selecionar status Processado', () => {
       cy.get('.inputsearch').type('resgate').should('have.value','resgate')      
@@ -117,7 +117,7 @@ describe('Warren - Minhas Transações', () => {
   context('Ações com filtro - Preenchimento campo input e select status = Concluído', () => {
     beforeEach(() => {
       cy.get('.inputsearch').clear()
-      cy.get('.selectstatus').select('Concluído')
+      cy.get('.selectstatus').select('Concluída')
     })
     it('Digitar resgate no campo input e selecionar status Concluído', () => {
       cy.get('.inputsearch').type('resgate').should('have.value','resgate')      
@@ -162,7 +162,7 @@ describe('Warren - Minhas Transações', () => {
       cy.get('tbody > tr').should('have.length', 21)
     })
     it('Clicar no botão Limpar. Apenas select alterado', () => { 
-      cy.get('.selectstatus').select('Concluído')     
+      cy.get('.selectstatus').select('Concluída')     
       cy.get('tbody > tr').should('have.length', 7)
       cy.get('.limpar').should('be.visible')
       cy.get('.limpar').click()
@@ -171,7 +171,7 @@ describe('Warren - Minhas Transações', () => {
       cy.get('tbody > tr').should('have.length', 21)
     })
     it('Clicar no botão Limpar. Input e Select alterados', () => { 
-      cy.get('.selectstatus').select('Solicitado')     
+      cy.get('.selectstatus').select('Solicitada')     
       cy.get('tbody > tr').should('have.length', 7)
       cy.get('.limpar').should('be.visible')
       cy.get('.inputsearch').type('Resg').should('have.value','Resg')

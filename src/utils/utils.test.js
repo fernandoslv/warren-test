@@ -16,7 +16,7 @@ const transacoes = [
         "id": "5f89f9f257fe42957bf6dbfd",
         "title": "Resgate",
         "description": "et labore proident aute nulla",
-        "status": "created",
+        "status": "processing",
         "amount": 2078.66,
         "date": "2018-12-22",
         "from": "Aposentadoria",
@@ -46,6 +46,21 @@ test('Converter Valor para padrão pt-BR', () => {
     expect(normalizaDados.normalizarValor(transacoes[1].amount)).toBe("R$ 2.078,66");
 });
 
+
+/*Conversão Status*/
+test('Converter Status para Português - Created > Solicitado', () => {
+    expect(normalizaDados.normalizarStatus(transacoes[0].status)).toBe("Solicitada");
+});
+
+test('Converter Status para Português - Processing > Processado', () => {
+    expect(normalizaDados.normalizarStatus(transacoes[1].status)).toBe("Processada");
+});
+
+test('Converter Status para Português - Processed > Concluído', () => {
+    expect(normalizaDados.normalizarStatus(transacoes[2].status)).toBe("Concluída");
+});
+
+/*Ordenação por Data*/
 test('Ordenar transações por Data', () => {
     expect(funcoesTransacao.ordernarTransacoesPorData(transacoes)).toEqual(
         [
@@ -53,7 +68,7 @@ test('Ordenar transações por Data', () => {
                 "id": "5f89f9f257fe42957bf6dbfd",
                 "title": "Resgate",
                 "description": "et labore proident aute nulla",
-                "status": "created",
+                "status": "processing",
                 "amount": 2078.66,
                 "date": "2018-12-22",
                 "from": "Aposentadoria",
@@ -89,7 +104,7 @@ test('Normalizar dados transação', () => {
             "id": "5f89f9f2f318e70ff298f528",
             "title": "Movimentação interna",
             "description": "eu officia laborum labore aute",
-            "status": "processed",
+            "status": "Concluída",
             "amount": "R$ 25.092,80",
             "date": "25/08/2016",
             "from": "Férias",

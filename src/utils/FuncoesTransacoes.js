@@ -12,6 +12,7 @@ module.exports = {
     normalizarDadosTransacoes: (transacao) => {
         transacao.date = normalizaDados.normalizarData(transacao.date)
         transacao.amount = normalizaDados.normalizarValor(transacao.amount)
+        transacao.status = normalizaDados.normalizarStatus(transacao.status)
         return transacao;
     }
 }

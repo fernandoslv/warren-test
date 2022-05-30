@@ -29,10 +29,9 @@
                 <div
                   class="status-col__bullet"
                   :class="{
-                    'status-col__bullet--concluida': item.status == 'processed',
-                    'status-col__bullet--processada':
-                      item.status == 'processing',
-                    'status-col__bullet--solicitada': item.status == 'created',
+                    'status-col__bullet--concluida': item.status == 'Concluída',
+                    'status-col__bullet--processada': item.status == 'Processada',
+                    'status-col__bullet--solicitada': item.status == 'Solicitada',
                   }"
                 ></div>
                 <div class="status-col__value">{{ item.status }}</div>
